@@ -7,11 +7,11 @@ import javax.swing.*;
 
 import view.*;
 
-public class Controller {
+public class MainController {
 	
 	private SeqMultiplicationGUI seqView;
 	
-	public Controller(SeqMultiplicationGUI sv) {
+	public MainController(SeqMultiplicationGUI sv) {
 		this.seqView = sv;
 		seqView.listenerForBtnLoad(new BtnLoadActionListener());
 		seqView.listenerForBtnReset(new BtnResetActionListener());

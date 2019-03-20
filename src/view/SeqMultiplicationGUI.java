@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controller.Controller;
+import controller.MainController;
 
 import javax.swing.JTabbedPane;
 import java.awt.FlowLayout;
@@ -58,7 +58,7 @@ public class SeqMultiplicationGUI extends JFrame {
 			public void run() {
 				try {
 					SeqMultiplicationGUI frame = new SeqMultiplicationGUI();
-					Controller control = new Controller(frame);
+					MainController control = new MainController(frame);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
