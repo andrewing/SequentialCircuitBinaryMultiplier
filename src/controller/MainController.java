@@ -41,19 +41,43 @@ public class MainController {
 	
 	public String getMPrime(String input) {
 
-		StringBuilder result = new StringBuilder(input);
+		StringBuilder mprime = new StringBuilder(input);
+		String flip = "";
+		String result = "";
 		char one = '1';
 		char zero = '0';
+		int index = 0;
 		
-		for(int j=0; j<input.length(); j++) {
-			
-			if(input.charAt(j) == one) {
-				result.setCharAt(j, zero);
-			}else if(input.charAt(j) == zero)
-				result.setCharAt(j, one);
+		for(int k=input.length() - 1; k>=0; k--) {
+			if(input.charAt(k) != 1) {
+				flip = flip + input.charAt(k);
+			}
 		}
 		
-		return result.toString();
+		for(int i=0; i<flip.length(); i++) {
+			if(flip.charAt(i) == one){
+				index = i;
+			}
+		}
+		
+		System.out.println(index);
+		
+				
+	/*	for(int j=0; j<flip.length(); j++) {
+			if(j != index) {
+				if(flip.length() == one) {
+					mprime.setCharAt(j, one);
+				}else {
+					mprime.setCharAt(j, zero);
+				}
+			}else {
+				
+			}
+		}*/
+		
+		
+		
+		return flip;
 	}
 	
 	class BtnLoadActionListener implements ActionListener{
