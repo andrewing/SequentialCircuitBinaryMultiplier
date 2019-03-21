@@ -17,6 +17,8 @@ public class BitUtil {
 	public static short signExtend(short value, short size) {
 		String val = Integer.toBinaryString(value);
 		int len = val.length();
+		System.out.println(len);
+		
 		char bit = '0';
 		
 		if(val.length() < size) {
@@ -24,10 +26,12 @@ public class BitUtil {
 		}else if(val.charAt(0)=='1') {
 			bit = '1';
 		}
+		System.out.println(val);
 		
 		for(int i = 0; i < Short.SIZE - len; i++) {
 			val = bit + val;
 		}
+		
 		return (short)Integer.parseInt(val, 2);
 	}
 	
