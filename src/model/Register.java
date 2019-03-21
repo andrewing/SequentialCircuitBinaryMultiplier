@@ -61,9 +61,9 @@ public class Register {
 		Register qneg = new Register(0b0);
 		Register m = new Register("10100");
 		Register q = new Register("10100");
-		
+		Register mprime = new Register("10101");
 		short size = BitUtil.maxSize(a.getSize(), qneg.getSize(), m.getSize(), q.getSize());
-	
+		
 		BaseCalculator bbb = new BaseCalculator();
 		bbb.setStrategy(new ConvertBinary());
 		System.out.println(m.getContent());
@@ -74,6 +74,7 @@ public class Register {
 		//System.out.println(Integer.toBinaryString(m.getContent()));
 		//System.out.println(bbb.convert(m.getContent(), m.getSize()));
 		//System.out.println(m.getContent());
+		
 	}
 	
 }

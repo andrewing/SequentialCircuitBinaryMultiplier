@@ -213,6 +213,7 @@ public class SeqMultiplicationGUI extends JFrame {
 		btnLoad = new JButton("Load");
 		btnLoad.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnLoad.setBounds(174, 135, 94, 27);
+		btnLoad.setEnabled(false);
 		Input.add(btnLoad);
 		
 		btnReset = new JButton("Reset");
@@ -223,6 +224,10 @@ public class SeqMultiplicationGUI extends JFrame {
 	}
 
 //=============================================================================================//
+	
+	public JButton getBtnLoad() {
+		return this.btnLoad;
+	}
 	
 	public String getInputM() {
 		return this.inputMTxtField.getText().toString();
@@ -268,6 +273,10 @@ public class SeqMultiplicationGUI extends JFrame {
 //================================================================================//
 	public void listenerForInputMTxtField(DocumentListener listenerForInputMTxtField) {
 		this.inputMTxtField.getDocument().addDocumentListener(listenerForInputMTxtField);
+	}
+	
+	public void listenerForInputQTxtField(DocumentListener listenerForInputQTxtField) {
+		this.inputQTxtField.getDocument().addDocumentListener(listenerForInputQTxtField);
 	}
 	
 	public void listenerForBtnLoad(ActionListener listenerForBtnLoad) {

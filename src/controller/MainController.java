@@ -22,6 +22,8 @@ public class MainController {
 		seqView.listenerForBtnReset(new BtnResetActionListener());
 		seqView.listenerForBtnCycle(new BtnCycleActionListener());
 		seqView.listenerForBtnRun(new BtnRunActionListener());
+		seqView.listenerForInputMTxtField(docListener);
+		seqView.listenerForInputQTxtField(docListener);
 	}
 
 	public boolean validInput() {
@@ -42,18 +44,34 @@ public class MainController {
 		return true;
 	}
 	
+	DocumentListener docListener = new DocumentListener(){
+		
+		public void nullInput() {
+			if(seqView.getInputM().equalsIgnoreCase("") || seqView.getInputQ().equalsIgnoreCase("")) {
+				seqView.getBtnLoad().setEnabled(false);
+			}else if(!validInput()) {
+				seqView.getBtnLoad().setEnabled(false);
+			}else {
+				seqView.getBtnLoad().setEnabled(true);
+			}
+		}
+		
+		@Override
+		public void insertUpdate(DocumentEvent e) {nullInput();}
+
+		@Override
+		public void removeUpdate(DocumentEvent e) {nullInput();}
+
+		@Override
+		public void changedUpdate(DocumentEvent e) {nullInput();}
+		
+	};
+	
 	class BtnLoadActionListener implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		
-			if(!validInput()) {
-				JOptionPane.showMessageDialog(seqView, "Invalid Input!");
-			}else if(seqView.getInputM().equalsIgnoreCase("") || seqView.getInputQ().equalsIgnoreCase("")) {
-				JOptionPane.showMessageDialog(seqView, "Invalid!");
-			}else {
-				seqView.getTabbedPane().setSelectedIndex(1);
-			}
+			seqView.getTabbedPane().setSelectedIndex(1);
 		}
 	}
 	
