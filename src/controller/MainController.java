@@ -22,6 +22,7 @@ public class MainController {
 		seqView.listenerForBtnReset(new BtnResetActionListener());
 		seqView.listenerForBtnCycle(new BtnCycleActionListener());
 		seqView.listenerForBtnRun(new BtnRunActionListener());
+		seqView.listenerForBtnStep(new BtnStepActionListener());
 		seqView.listenerForInputMTxtField(docListener);
 		seqView.listenerForInputQTxtField(docListener);
 	}
@@ -98,6 +99,15 @@ public class MainController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 		
+		}
+	}
+	
+	class BtnStepActionListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 	

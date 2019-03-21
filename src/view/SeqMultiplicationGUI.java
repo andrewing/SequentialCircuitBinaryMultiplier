@@ -29,31 +29,24 @@ import java.text.ParseException;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
+import javax.swing.JSeparator;
 
 public class SeqMultiplicationGUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTabbedPane tabbedPane;
-	private JFormattedTextField inputMTxtField;
-	private JFormattedTextField inputQTxtField;
+	private JFormattedTextField inputMTxtField, inputQTxtField;
 	private JComboBox comboBox;
-	private JButton btnLoad;
-	private JButton btnReset;
+	private JButton btnLoad, btnReset;
 	private ImageIcon timesIcon = new ImageIcon(getClass().getResource("/multiply.png"));
-	private JTextField outputM;
-	private JTextField outputA;
-	private JTextField outputQ;
-	private JTextField outputQ1;
-	private JLabel lblM;
-	private JLabel lblA;
-	private JLabel lblQ;
-	private JLabel lblQ1;
-	private JButton btnCycle;
-	private JButton btnRun;
+	private JTextField outputM, outputA, outputQ, outputQ1;
+	private JLabel lblM, lblA, lblQ, lblQ1;
+
+	private JButton btnCycle, btnRun, btnStep;
 	private JTextField outputMPrime;
-	private JLabel lblMPrime;
-	private JLabel lblCycleCount;
-	private JLabel lblCount;
+	private JLabel lblMPrime, lblCycleCount, lblCount;
+	private JPanel result;
+	private JLabel lblX, lblProduct, lblMultiplicand, lblMultiplier;
 
 	/**
 	 * Launch the application.
@@ -168,16 +161,6 @@ public class SeqMultiplicationGUI extends JFrame {
 		lblQ1.setBounds(543, 70, 32, 21);
 		Solution.add(lblQ1);
 		
-		btnCycle = new JButton("Cycle");
-		btnCycle.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnCycle.setBounds(174, 135, 94, 27);
-		Solution.add(btnCycle);
-		
-		btnRun = new JButton("Run");
-		btnRun.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnRun.setBounds(332, 135, 94, 27);
-		Solution.add(btnRun);
-		
 		lblCycleCount = new JLabel("Cycle Count:");
 		lblCycleCount.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCycleCount.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -189,6 +172,21 @@ public class SeqMultiplicationGUI extends JFrame {
 		lblCount.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblCount.setBounds(125, 103, 32, 21);
 		Solution.add(lblCount);
+		
+		btnCycle = new JButton("Cycle");
+		btnCycle.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnCycle.setBounds(239, 135, 94, 27);
+		Solution.add(btnCycle);
+		
+		btnRun = new JButton("Run");
+		btnRun.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnRun.setBounds(388, 135, 94, 27);
+		Solution.add(btnRun);
+		
+		btnStep = new JButton("Step");
+		btnStep.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnStep.setBounds(91, 135, 94, 27);
+		Solution.add(btnStep);
 
 //==============================================================================================//
 		
@@ -220,6 +218,39 @@ public class SeqMultiplicationGUI extends JFrame {
 		btnReset.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnReset.setBounds(332, 135, 94, 27);
 		Input.add(btnReset);
+		
+//===============================================================================//		
+		result = new JPanel();
+		tabbedPane.addTab("Result", null, result, null);
+		result.setLayout(null);
+		
+		lblMultiplicand = new JLabel("New label");
+		lblMultiplicand.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblMultiplicand.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMultiplicand.setBounds(240, 22, 170, 30);
+		result.add(lblMultiplicand);
+		
+		lblMultiplier = new JLabel("New label");
+		lblMultiplier.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMultiplier.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblMultiplier.setBounds(240, 67, 170, 30);
+		result.add(lblMultiplier);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(190, 108, 220, 8);
+		result.add(separator);
+		
+		lblProduct = new JLabel("New label");
+		lblProduct.setHorizontalAlignment(SwingConstants.CENTER);
+		lblProduct.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblProduct.setBounds(240, 115, 170, 30);
+		result.add(lblProduct);
+		
+		lblX = new JLabel("X");
+		lblX.setHorizontalAlignment(SwingConstants.CENTER);
+		lblX.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblX.setBounds(200, 89, 49, 14);
+		result.add(lblX);
 		
 	}
 
@@ -293,5 +324,9 @@ public class SeqMultiplicationGUI extends JFrame {
 	
 	public void listenerForBtnRun(ActionListener listenerForBtnRun) {
 		this.btnRun.addActionListener(listenerForBtnRun);
+	}
+	
+	public void listenerForBtnStep(ActionListener listenerForBtnStep) {
+		this.btnStep.addActionListener(listenerForBtnStep);
 	}
 }
