@@ -1,58 +1,79 @@
 package model;
 
+import controller.BaseCalculator;
+import controller.BitUtil;
+import controller.ConvertBinary;
+import controller.ConvertStrategy;
+
 public class Register {
-	private int size;
-	private int content;
+	private short size;
+	private short content;
 	
-	public Register(int content) {
+	public Register(short content) {
 		this.content = content;
 	}
 	
+	public Register(int content) {
+		this((short)content);
+	}
+	
 	public Register(String content) {
-		this.content = Integer.parseInt(content,2);
-		this.size = content.length();
+		this((short)Integer.parseInt(content,2));
+		this.size = (short)content.length();
+		this.content = BitUtil.signExtend(this.content, this.size);
 	}
 
 	public int shiftRight(int insert) {
-		int removed = getBit(0);
+		int removed = BitUtil.getBit(content, 0);
 		content >>= 1;
-		content |= insert*(int)Math.pow(2, size-1);
+		if(insert == 1)
+			content |= insert*(int)Math.pow(2, size-1);
+		else
+			content &= insert*(int)Math.pow(2, size-1);
+
 		return removed;
 	}
 	
 	public int shiftRightArithmetic() {
-		return shiftRight(getBit(size-1));
+		return shiftRight(BitUtil.getBit(content, size-1));
 	}
+
 	
-	public int getBit(int position) {
-		return (content >> position) & 1;
-	}
-	
-	public int getSize() {
+	public short getSize() {
 		return size;
 	}
 
-	public void setSize(int size) {
+	public void setSize(short size) {
 		this.size = size;
 	}
 
-	public int getContent() {
+	public short getContent() {
 		return content;
 	}
 
-	public void setContent(int content) {
+	public void setContent(short content) {
 		this.content = content;
 	}
 	
 	public static void main(String[] args) {
-		Register a = new Register(Integer.parseInt("0000",2));
 		
-		Register q = new Register(Integer.parseInt("11010",2));
-		q.setSize("01010".length());
-		System.out.println(Integer.toBinaryString(q.getContent()));
-		System.out.println(q.getSize());
-		q.shiftRightArithmetic();
-		System.out.println(Integer.toBinaryString(q.getContent()));
+		Register a = new Register(0);
+		Register qneg = new Register(0b0);
+		Register m = new Register("10100");
+		Register q = new Register("10100");
+		
+		short size = BitUtil.maxSize(a.getSize(), qneg.getSize(), m.getSize(), q.getSize());
+	
+		BaseCalculator bbb = new BaseCalculator();
+		bbb.setStrategy(new ConvertBinary());
+		System.out.println(m.getContent());
+		//System.out.println(q.getContent());
+		
+		m.setContent((short) (m.getContent() + q.getContent()));
+		System.out.println(BitUtil.getValue(m.getContent(), m.getSize()));
+		//System.out.println(Integer.toBinaryString(m.getContent()));
+		//System.out.println(bbb.convert(m.getContent(), m.getSize()));
+		//System.out.println(m.getContent());
 	}
 	
 }
