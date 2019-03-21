@@ -1,10 +1,10 @@
 package model;
 
-public class RegisterString {
+public class Register {
 	private int size;
 	private String value;
 	
-	public RegisterString(String value) {
+	public Register(String value) {
 		this.value = value;
 		this.size = value.length();
 	}
@@ -37,10 +37,11 @@ public class RegisterString {
 	}
 	
 	public static void main(String[] args) {
-		RegisterString a = new RegisterString("1000");
-		a.shiftArithmeticRight();
+		Register a = new Register("1001");
+		Register b = new Register("0100");
+		b.shiftRight(a.shiftArithmeticRight());
 		System.out.println(a.getValue());
-				
+		System.out.println(b.getValue());
 				
 	}
 }
