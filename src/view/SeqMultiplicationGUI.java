@@ -8,6 +8,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.*;
 
 import controller.MainController;
 
@@ -21,16 +23,19 @@ import javax.swing.UIManager;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
+import java.text.ParseException;
 
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 
 public class SeqMultiplicationGUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTabbedPane tabbedPane;
-	private JTextField inputMTxtField;
-	private JTextField inputQTxtField;
+	private JFormattedTextField inputMTxtField;
+	private JFormattedTextField inputQTxtField;
 	private JComboBox comboBox;
 	private JButton btnLoad;
 	private JButton btnReset;
@@ -128,6 +133,7 @@ public class SeqMultiplicationGUI extends JFrame {
 		Solution.add(outputQ);
 		
 		outputQ1 = new JTextField();
+		outputQ1.setEditable(false);
 		outputQ1.setColumns(10);
 		outputQ1.setBounds(580, 65, 58, 27);
 		Solution.add(outputQ1);
@@ -186,15 +192,18 @@ public class SeqMultiplicationGUI extends JFrame {
 
 //==============================================================================================//
 		
-		inputMTxtField = new JTextField();
+		
+		inputMTxtField = new JFormattedTextField();
 		inputMTxtField.setBounds(48, 63, 190, 27);
 		Input.add(inputMTxtField);
-		inputMTxtField.setColumns(10);
+		inputMTxtField.setColumns(20);
 		
-		inputQTxtField = new JTextField();
-		inputQTxtField.setColumns(10);
+		inputQTxtField = new JFormattedTextField();
 		inputQTxtField.setBounds(350, 63, 190, 27);
 		Input.add(inputQTxtField);
+		inputQTxtField.setColumns(20);
+		
+		
 		
 		String[] type = {"(Choose base)", "Binary","Decimal", "Hexadecimal"};
 		comboBox = new JComboBox(type);
@@ -216,11 +225,11 @@ public class SeqMultiplicationGUI extends JFrame {
 //=============================================================================================//
 	
 	public String getInputM() {
-		return this.inputMTxtField.getText();
+		return this.inputMTxtField.getText().toString();
 	}
 	
 	public String getInputQ() {
-		return this.inputQTxtField.getText();
+		return this.inputQTxtField.getText().toString();
 	}
 	
 	
@@ -233,9 +242,32 @@ public class SeqMultiplicationGUI extends JFrame {
 		this.inputQTxtField.setText(null);
 		this.comboBox.setSelectedIndex(0);
 	}
+
+//===========================================================================//
 	
 	public void setLblCount(String num) {
 		this.lblCount.setText(num);
+	}
+	
+	public void setOutputM(String m) {
+		this.outputM.setText(m);
+	}
+	
+	public void setOutputQ(String q) {
+		this.outputQ.setText(q);
+	}
+	
+	public void setOutputA(String a) {
+		this.outputA.setText(a);
+	}
+	
+	public void setOutputMPrime(String mPrime) {
+		this.outputMPrime.setText(mPrime);
+	}
+	
+//================================================================================//
+	public void listenerForInputMTxtField(DocumentListener listenerForInputMTxtField) {
+		this.inputMTxtField.getDocument().addDocumentListener(listenerForInputMTxtField);
 	}
 	
 	public void listenerForBtnLoad(ActionListener listenerForBtnLoad) {
