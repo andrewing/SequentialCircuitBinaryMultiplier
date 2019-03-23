@@ -224,13 +224,13 @@ public class SeqMultiplicationGUI extends JFrame {
 		tabbedPane.addTab("Result", null, result, null);
 		result.setLayout(null);
 		
-		lblMultiplicand = new JLabel("New label");
+		lblMultiplicand = new JLabel();
 		lblMultiplicand.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblMultiplicand.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMultiplicand.setBounds(240, 22, 170, 30);
 		result.add(lblMultiplicand);
 		
-		lblMultiplier = new JLabel("New label");
+		lblMultiplier = new JLabel();
 		lblMultiplier.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMultiplier.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblMultiplier.setBounds(240, 67, 170, 30);
@@ -240,7 +240,7 @@ public class SeqMultiplicationGUI extends JFrame {
 		separator.setBounds(190, 108, 220, 8);
 		result.add(separator);
 		
-		lblProduct = new JLabel("New label");
+		lblProduct = new JLabel();
 		lblProduct.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProduct.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblProduct.setBounds(240, 115, 170, 30);
@@ -299,6 +299,36 @@ public class SeqMultiplicationGUI extends JFrame {
 	
 	public void setOutputMPrime(String mPrime) {
 		this.outputMPrime.setText(mPrime);
+	}
+	
+	public void setOutputQNeg(String qneg) {
+		this.outputQ1.setText(qneg);
+	}
+	
+	public JButton getBtnStep() {
+		return this.btnStep;
+	}
+	
+	public JButton getBtnCycle() {
+		return this.btnCycle;
+	}
+	
+	public JButton getBtnRun() {
+		return this.btnRun;
+	}
+	
+//================================================================================//
+	
+	public void setLblMultiplicand(String m) {
+		this.lblMultiplicand.setText(m);
+	}
+	
+	public void setLblMultiplier(String q) {
+		this.lblMultiplier.setText(q);
+	}
+	
+	public void setProduct(String a) {
+		this.lblProduct.setText(a);
 	}
 	
 //================================================================================//

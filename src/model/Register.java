@@ -71,14 +71,6 @@ public class Register {
 		registers.add(a);
 		registers.add(q);
 		registers.add(qneg);
-		
-	/*	for(Register r: registers)
-			System.out.println(r.getValue());
-		System.out.println();
-		
-		if((q.getValue().charAt(q.getSize()-1) + qneg.getValue()).equals("00")) {
-			System.out.println("hello");
-		}*/
 
 		int index = a.getValue().length() -1;
 		
@@ -86,16 +78,7 @@ public class Register {
 		System.out.println(q.getValue());
 		System.out.println(qneg.getValue());
 		System.out.println(a.getValue().charAt(index));
-		
-		
-		
-		
-		
-		
-		
 		System.out.println(a.getValue());
 		System.out.println(q.getValue());
-		//System.out.println(qneg.getValue());
-		
 	}
 }

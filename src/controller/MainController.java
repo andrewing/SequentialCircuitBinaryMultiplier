@@ -14,10 +14,13 @@ public class MainController {
 	
 	private SeqMultiplicationGUI seqView;
 	private Register reg;
+	private SequentialBinaryMultiplier mul;
 //private Register register;
 	
 	public MainController(SeqMultiplicationGUI sv) {
 		this.seqView = sv;
+		this.mul = new SequentialBinaryMultiplier();
+		
 		seqView.listenerForBtnLoad(new BtnLoadActionListener());
 		seqView.listenerForBtnReset(new BtnResetActionListener());
 		seqView.listenerForBtnCycle(new BtnCycleActionListener());
@@ -43,6 +46,14 @@ public class MainController {
 		}
 		
 		return true;
+	}
+	
+	public void setOutputRegisters() {
+		seqView.setOutputA(mul.getRegAValue());
+		seqView.setOutputM(mul.getRegMValue());
+		seqView.setOutputMPrime(mul.getRegMNegValue());
+		seqView.setOutputQ(mul.getRegQValue());
+		seqView.setOutputQNeg(mul.getRegQNegValue());
 	}
 	
 	DocumentListener docListener = new DocumentListener(){
@@ -75,7 +86,9 @@ public class MainController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			mul.initRegisters(seqView.getInputM(), seqView.getInputQ());
 			seqView.getTabbedPane().setSelectedIndex(1);
+			setOutputRegisters();
 		}
 	}
 	
@@ -88,12 +101,40 @@ public class MainController {
 	}
 	
 	class BtnCycleActionListener implements ActionListener{
-		int count = 0;
+		int ctr = 0;
+		int ct = 1;
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			count++;
-			seqView.setLblCount(count+"");
+	
+			ctr+=2;
+			if(ctr % 2 ==0) {
+				seqView.setLblCount(ct+"");
+				ct++;
+			}
+			
+			if(ctr == mul.getTotalSteps()) {
+				seqView.getBtnCycle().setEnabled(false);
+			}
+			
+			mul.cycle();
+			setOutputRegisters();
+			
+		}
+	}
+	
+	class BtnStepActionListener implements ActionListener{
+		int ctr = 0 ;
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			ctr++;
+			if(ctr == mul.getTotalSteps()) {
+				seqView.getBtnStep().setEnabled(false);
+			}
+			
+			mul.step();
+			setOutputRegisters();
 		}
 	}
 	
@@ -101,19 +142,12 @@ public class MainController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		
-		}
-	}
-	
-	class BtnStepActionListener implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			seqView.getBtnCycle().setEnabled(false);
+			seqView.getBtnStep().setEnabled(false);
+			mul.run();
+			seqView.setLblCount(mul.getTotalCycle()+"");
+			setOutputRegisters();
 			
 		}
-	}
-	
-	
-	
+	}	
 }

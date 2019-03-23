@@ -4,6 +4,8 @@ import java.util.*;
 import controller.BitUtil;
 public class SequentialBinaryMultiplier {
 	private ArrayList<Register> registers;
+	int totalSteps;
+	int stepCtr;
 	
 	
 	public SequentialBinaryMultiplier(){
@@ -15,9 +17,11 @@ public class SequentialBinaryMultiplier {
 		Register regMNeg = new Register(-BitUtil.getStringValue(regM.getValue()));
 		Register regQ = new Register(q);
 		Register regQNeg = new Register("0");
-		Register regA = new Register("10011");
+		Register regA = new Register("0");
 		
 		int max = getMaxSize(regM, regQ);
+		stepCtr = 0;
+		this.totalSteps = getMaxSize(regM, regQ) *2;
 		
 		regM.setSize(max);
 		regMNeg.setSize(max);
@@ -72,6 +76,10 @@ public class SequentialBinaryMultiplier {
 		return registers.get(0).getValue();
 	}
 	
+	public String getRegMNegValue() {
+		return registers.get(1).getValue();
+	}
+	
 	public String getRegQValue() {
 		return registers.get(2).getValue();
 	}
@@ -83,37 +91,90 @@ public class SequentialBinaryMultiplier {
 	public String getRegAValue() {
 		return registers.get(4).getValue();
 	}
+	
+	public int getTotalSteps() {
+		return this.totalSteps;
+	}
+	
+	public int getTotalCycle() {
+		return this.totalSteps/2;
+	}
 
 	public void step() {
+		
+		if(stepCtr % 2 == 0 && stepCtr <= totalSteps) {
+			add();
+			stepCtr++;
+			
+		}else if(stepCtr % 2 != 0 && stepCtr <= totalSteps) {
+			shiftRegisters();
+			stepCtr++;
+		}else if(stepCtr == totalSteps) {
+			System.out.println("sakto");
+		}
 		
 	}
 	
 	public void cycle() {
 		
+		if(stepCtr % 2 == 0 && stepCtr <= totalSteps) {
+			add();
+			shiftRegisters();
+			stepCtr += 2;
+		}else if(stepCtr % 2 != 0 && stepCtr <= totalSteps) {
+			shiftRegisters();
+			stepCtr++;
+		}
 	}
 	
 	public void run() {
 		
+		if(stepCtr % 2 == 0) {
+			int ctr = (this.totalSteps-stepCtr)/2 ;
+			while(ctr != 0) {
+				cycle();
+				ctr--;
+			}
+		}else if(stepCtr % 2 != 0) {
+			step();
+			int ctr = (this.totalSteps-stepCtr)/2 ;
+			while(ctr != 0) {
+				cycle();
+				ctr--;
+			}	
+		}
 	}
 	
 	public static void main(String args[]) {
-		String m = "10011";
-		String q = "01101";
+		String m = "01101";
+		String q = "11010";
 		
 		SequentialBinaryMultiplier mul = new SequentialBinaryMultiplier();
-	/*	mul.initRegisters(m, q);
-		System.out.println(mul.getRegAValue());
-		mul.add();
-		System.out.println(mul.getRegAValue());*/
-		mul.initRegisters(m, q);
-		System.out.println(mul.getRegAValue());
-		System.out.println(mul.getRegQValue());
-		System.out.println(mul.getRegQNegValue());
-		mul.shiftRegisters();
-		System.out.println(mul.getRegAValue());
-		System.out.println(mul.getRegQValue());
-		System.out.println(mul.getRegQNegValue());
 		
+		mul.initRegisters(m, q);
+		System.out.println("M = " + mul.getRegMValue());
+		System.out.println("A = " + mul.getRegAValue());
+		System.out.println("Q = " + mul.getRegQValue());
+		System.out.println("Qneg = " + mul.getRegQNegValue());
+		System.out.println("==============");
+		mul.cycle();
+		System.out.println("M = " + mul.getRegMValue());
+		System.out.println("A = " + mul.getRegAValue());
+		System.out.println("Q = " + mul.getRegQValue());
+		System.out.println("Qneg = " + mul.getRegQNegValue());
+		System.out.println("==============");
+		mul.step();
+		System.out.println("M = " + mul.getRegMValue());
+		System.out.println("A = " + mul.getRegAValue());
+		System.out.println("Q = " + mul.getRegQValue());
+		System.out.println("Qneg = " + mul.getRegQNegValue());
+		System.out.println("==============");
+		mul.run();
+		System.out.println("M = " + mul.getRegMValue());
+		System.out.println("A = " +mul.getRegAValue());
+		System.out.println("Q = " + mul.getRegQValue());
+		System.out.println("Qneg = " +mul.getRegQNegValue());
+		System.out.println("==============");
 		
 	}
 }
