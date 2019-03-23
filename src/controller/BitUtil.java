@@ -23,4 +23,6 @@ public class BitUtil {
 		return (short) Integer.parseInt(val, 2);
 	} 
 	
+
+	
 }

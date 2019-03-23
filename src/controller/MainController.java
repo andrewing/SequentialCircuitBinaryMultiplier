@@ -1,19 +1,19 @@
 package controller; 
 
 import java.awt.event.ActionEvent;
-
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 
 import view.*;
+import model.*;
 
 public class MainController {
 	
 	private SeqMultiplicationGUI seqView;
+	private Register reg;
 //private Register register;
 	
 	public MainController(SeqMultiplicationGUI sv) {
@@ -67,6 +67,9 @@ public class MainController {
 		public void changedUpdate(DocumentEvent e) {nullInput();}
 		
 	};
+	
+	
+	
 	
 	class BtnLoadActionListener implements ActionListener{
 

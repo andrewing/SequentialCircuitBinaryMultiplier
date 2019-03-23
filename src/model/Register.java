@@ -16,6 +16,7 @@ public class Register {
 	public Register(int value) {
 		this.value = Integer.toBinaryString(value);
 	}
+	
 	public char shiftRight(char insert) {
 		char removed = value.charAt(size-1);
 		value = insert + value;
@@ -59,11 +60,11 @@ public class Register {
 	public static void main(String[] args) {
 		List<Register> registers = new ArrayList<>();
 		
-		Register m = new Register("1011");
+		Register m = new Register("1010");
 		Register mneg = new Register(-BitUtil.getStringValue(m.getValue()));
 		mneg.setSize(m.getSize());
-		Register a = new Register("0001");
-		Register q = new Register("1100");
+		Register a = new Register("10011");
+		Register q = new Register("01101");
 		Register qneg = new Register("0");
 		registers.add(m);
 		registers.add(mneg);
@@ -71,15 +72,30 @@ public class Register {
 		registers.add(q);
 		registers.add(qneg);
 		
-		for(Register r: registers)
+	/*	for(Register r: registers)
 			System.out.println(r.getValue());
 		System.out.println();
 		
 		if((q.getValue().charAt(q.getSize()-1) + qneg.getValue()).equals("00")) {
 			System.out.println("hello");
-		}
+		}*/
+
+		int index = a.getValue().length() -1;
+		
+		System.out.println(a.getValue());
+		System.out.println(q.getValue());
+		System.out.println(qneg.getValue());
+		System.out.println(a.getValue().charAt(index));
 		
 		
+		
+		
+		
+		
+		
+		System.out.println(a.getValue());
+		System.out.println(q.getValue());
+		//System.out.println(qneg.getValue());
 		
 	}
 }
