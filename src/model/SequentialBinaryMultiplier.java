@@ -28,11 +28,11 @@ public class SequentialBinaryMultiplier {
 		regQ.setSize(max);
 		regA.setSize(max);
 		
-		registers.add(regM);       //0
-		registers.add(regMNeg);    //1
-		registers.add(regQ);       //2
-		registers.add(regQNeg);    //3
-		registers.add(regA);       //4
+		registers.add(regM);
+		registers.add(regMNeg);
+		registers.add(regQ);
+		registers.add(regQNeg);
+		registers.add(regA);
 	}
 	
 	public int getMaxSize(Register m, Register q) {
@@ -98,6 +98,10 @@ public class SequentialBinaryMultiplier {
 	
 	public int getTotalCycle() {
 		return this.totalSteps/2;
+	}
+	
+	public int getStepCtr() {
+		return this.stepCtr;
 	}
 
 	public void step() {

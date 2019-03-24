@@ -15,6 +15,7 @@ public class MainController {
 	private SeqMultiplicationGUI seqView;
 	private Register reg;
 	private SequentialBinaryMultiplier mul;
+	private int steps;
 	private int ctr;
 	private int ct;
 	
@@ -79,9 +80,18 @@ public class MainController {
 		seqView.setOutputQNeg(mul.getRegQNegValue());
 	}
 	
-	public void resetBtns() {
+	public void resetOutputRegisters() {
+		seqView.setOutputA("");
+		seqView.setOutputM("");
+		seqView.setOutputMPrime("");
+		seqView.setOutputQ("");
+		seqView.setOutputQNeg("");
+	}
+	
+	public void init() {
 		ctr = 0;
 		ct = 1;
+		
 		seqView.getBtnCycle().setEnabled(true);
 		seqView.getBtnRun().setEnabled(true);
 		seqView.getBtnStep().setEnabled(true);
@@ -107,7 +117,7 @@ public class MainController {
 			seqView.getTabbedPane().setSelectedIndex(1);
 			setOutputRegisters();
 			setResult();
-			resetBtns();
+			init();
 		}
 	}
 	
@@ -116,6 +126,15 @@ public class MainController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			seqView.resetInput();
+			resetOutputRegisters();
+			seqView.setLblCount("");
+			seqView.getBtnCycle().setEnabled(false);
+			seqView.getBtnRun().setEnabled(false);
+			seqView.getBtnStep().setEnabled(false);
+			seqView.setLblMultiplicand("");
+			seqView.setLblMultiplier("");
+			seqView.setProduct("");
+			
 		}
 	}
 	
@@ -123,10 +142,15 @@ public class MainController {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ctr+=2;
-			if(ctr % 2 ==0) {
+			
+			if(ctr % 2 == 0) {
 				seqView.setLblCount(ct+"");
 				ct++;
+				ctr+=2;
+			}else if(ctr % 2 != 0) {
+				seqView.setLblCount(ct+"");
+				ct++;
+				ctr++;
 			}
 			
 			if(ctr == mul.getTotalSteps()) {
@@ -145,8 +169,8 @@ public class MainController {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
 			ctr++;
+			
 			if(ctr == mul.getTotalSteps()) {
 				seqView.getBtnStep().setEnabled(false);
 				seqView.getBtnCycle().setEnabled(false);
