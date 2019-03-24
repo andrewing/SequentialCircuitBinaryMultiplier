@@ -15,11 +15,11 @@ public class MainController {
 	private SeqMultiplicationGUI seqView;
 	private Register reg;
 	private SequentialBinaryMultiplier mul;
-//private Register register;
+	private int ctr;
+	private int ct;
 	
 	public MainController(SeqMultiplicationGUI sv) {
 		this.seqView = sv;
-		this.mul = new SequentialBinaryMultiplier();
 		
 		seqView.listenerForBtnLoad(new BtnLoadActionListener());
 		seqView.listenerForBtnReset(new BtnResetActionListener());
@@ -48,14 +48,6 @@ public class MainController {
 		return true;
 	}
 	
-	public void setOutputRegisters() {
-		seqView.setOutputA(mul.getRegAValue());
-		seqView.setOutputM(mul.getRegMValue());
-		seqView.setOutputMPrime(mul.getRegMNegValue());
-		seqView.setOutputQ(mul.getRegQValue());
-		seqView.setOutputQNeg(mul.getRegQNegValue());
-	}
-	
 	DocumentListener docListener = new DocumentListener(){
 		
 		public void nullInput() {
@@ -79,16 +71,43 @@ public class MainController {
 		
 	};
 	
+	public void setOutputRegisters() {
+		seqView.setOutputA(mul.getRegAValue());
+		seqView.setOutputM(mul.getRegMValue());
+		seqView.setOutputMPrime(mul.getRegMNegValue());
+		seqView.setOutputQ(mul.getRegQValue());
+		seqView.setOutputQNeg(mul.getRegQNegValue());
+	}
 	
+	public void resetBtns() {
+		ctr = 0;
+		ct = 1;
+		seqView.getBtnCycle().setEnabled(true);
+		seqView.getBtnRun().setEnabled(true);
+		seqView.getBtnStep().setEnabled(true);
+		seqView.setLblCount("");
+	}
 	
+	public void setResult() {
+		SequentialBinaryMultiplier mult = new SequentialBinaryMultiplier();
+		mult.initRegisters(seqView.getInputM(), seqView.getInputQ());
+		seqView.setLblMultiplicand(mult.getRegMValue());
+		seqView.setLblMultiplier(mult.getRegQValue());
+		mult.run();
+		seqView.setProduct(mult.getRegAValue());
+		
+	}
 	
 	class BtnLoadActionListener implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			mul = new SequentialBinaryMultiplier();
 			mul.initRegisters(seqView.getInputM(), seqView.getInputQ());
 			seqView.getTabbedPane().setSelectedIndex(1);
 			setOutputRegisters();
+			setResult();
+			resetBtns();
 		}
 	}
 	
@@ -101,12 +120,9 @@ public class MainController {
 	}
 	
 	class BtnCycleActionListener implements ActionListener{
-		int ctr = 0;
-		int ct = 1;
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-	
 			ctr+=2;
 			if(ctr % 2 ==0) {
 				seqView.setLblCount(ct+"");
@@ -115,6 +131,8 @@ public class MainController {
 			
 			if(ctr == mul.getTotalSteps()) {
 				seqView.getBtnCycle().setEnabled(false);
+				seqView.getBtnRun().setEnabled(false);
+				seqView.getBtnStep().setEnabled(false);
 			}
 			
 			mul.cycle();
@@ -124,13 +142,20 @@ public class MainController {
 	}
 	
 	class BtnStepActionListener implements ActionListener{
-		int ctr = 0 ;
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
 			ctr++;
 			if(ctr == mul.getTotalSteps()) {
 				seqView.getBtnStep().setEnabled(false);
+				seqView.getBtnCycle().setEnabled(false);
+				seqView.getBtnRun().setEnabled(false);
+			}
+			
+			if(ctr % 2 == 0) {
+				seqView.setLblCount(ct+"");
+				ct++;
 			}
 			
 			mul.step();
