@@ -1,32 +1,16 @@
 package view;
-
-import java.awt.BorderLayout;
-
-import java.awt.EventQueue;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.*;
-
-import controller.MainController;
-
 import javax.swing.JTabbedPane;
-import java.awt.FlowLayout;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-
 import java.awt.Font;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.NumberFormat;
-import java.text.ParseException;
-
-import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
@@ -36,7 +20,6 @@ public class SeqMultiplicationGUI extends JFrame {
 	private JPanel contentPane;
 	private JTabbedPane tabbedPane;
 	private JFormattedTextField inputMTxtField, inputQTxtField;
-	private JComboBox comboBox;
 	private JButton btnLoad, btnReset;
 	private ImageIcon timesIcon = new ImageIcon(getClass().getResource("/multiply.png"));
 	private JTextField outputM, outputA, outputQ, outputQ1;
@@ -48,26 +31,6 @@ public class SeqMultiplicationGUI extends JFrame {
 	private JPanel result;
 	private JLabel lblX, lblProduct, lblMultiplicand, lblMultiplier;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SeqMultiplicationGUI frame = new SeqMultiplicationGUI();
-					MainController control = new MainController(frame);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public SeqMultiplicationGUI() {
 		
 		try {
@@ -75,15 +38,16 @@ public class SeqMultiplicationGUI extends JFrame {
 		}
 		catch (Exception e) {}
 		
+		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 815, 236);
+		setBounds(100, 100, 747, 231);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
-		tabbedPane.setBounds(10, 11, 791, 188);
+		tabbedPane.setBounds(10, 11, 723, 183);
 		contentPane.add(tabbedPane);
 		JPanel input = new JPanel();
 		tabbedPane.addTab("Input", null, input, null);
@@ -91,45 +55,37 @@ public class SeqMultiplicationGUI extends JFrame {
 		
 		JLabel lblSBMC = new JLabel("Sequential Binary Multiplication Calculator");
 		lblSBMC.setFont(new Font("Segoe UI", Font.BOLD, 18));
-		lblSBMC.setBounds(20, 11, 387, 27);
+		lblSBMC.setBounds(131, 11, 376, 27);
 		input.add(lblSBMC);
 		
 		JLabel multiply = new JLabel();
 		multiply.setFont(new Font("Tahoma", Font.BOLD, 15));
 		multiply.setHorizontalAlignment(SwingConstants.CENTER);
-		multiply.setBounds(270, 60, 48, 36);
+		multiply.setBounds(295, 60, 44, 27);
 		multiply.setIcon(timesIcon);
 		input.add(multiply);
 		
 		inputMTxtField = new JFormattedTextField();
-		inputMTxtField.setBounds(48, 63, 190, 27);
+		inputMTxtField.setBounds(44, 60, 190, 27);
 		input.add(inputMTxtField);
 		inputMTxtField.setColumns(20);
 		
 		inputQTxtField = new JFormattedTextField();
-		inputQTxtField.setBounds(350, 63, 190, 27);
+		inputQTxtField.setBounds(414, 60, 190, 27);
 		input.add(inputQTxtField);
 		inputQTxtField.setColumns(20);
 		
-		
-		
-		String[] type = {"(Choose base)", "Binary","Decimal", "Hexadecimal"};
-		comboBox = new JComboBox(type);
-		comboBox.setBounds(565, 63, 152, 27);
-		input.add(comboBox);
-		
 		btnLoad = new JButton("Load");
 		btnLoad.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnLoad.setBounds(174, 135, 94, 27);
+		btnLoad.setBounds(186, 116, 94, 27);
 		btnLoad.setEnabled(false);
 		input.add(btnLoad);
 		
 		btnReset = new JButton("Reset");
 		btnReset.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnReset.setBounds(332, 135, 94, 27);
+		btnReset.setBounds(340, 116, 94, 27);
 		input.add(btnReset);
-		
-//=============================================================================		
+			
 		JPanel solution = new JPanel();
 		tabbedPane.addTab("Solution", null, solution, null);
 		solution.setLayout(null);
@@ -221,8 +177,6 @@ public class SeqMultiplicationGUI extends JFrame {
 		btnStep.setBounds(91, 135, 94, 27);
 		solution.add(btnStep);
 
-//==============================================================================================//
-
 		result = new JPanel();
 		tabbedPane.addTab("Result", null, result, null);
 		result.setLayout(null);
@@ -257,7 +211,6 @@ public class SeqMultiplicationGUI extends JFrame {
 		
 	}
 
-//=============================================================================================//
 	
 	public JButton getBtnLoad() {
 		return this.btnLoad;
@@ -279,10 +232,7 @@ public class SeqMultiplicationGUI extends JFrame {
 	public void resetInput() {
 		this.inputMTxtField.setText(null);
 		this.inputQTxtField.setText(null);
-		this.comboBox.setSelectedIndex(0);
 	}
-
-//===========================================================================//
 	
 	public void setLblCount(String num) {
 		this.lblCount.setText(num);
@@ -320,7 +270,6 @@ public class SeqMultiplicationGUI extends JFrame {
 		return this.btnRun;
 	}
 	
-//================================================================================//
 	
 	public void setLblMultiplicand(String m) {
 		this.lblMultiplicand.setText(m);
@@ -333,8 +282,7 @@ public class SeqMultiplicationGUI extends JFrame {
 	public void setProduct(String a) {
 		this.lblProduct.setText(a);
 	}
-	
-//================================================================================//
+
 	public void listenerForInputMTxtField(DocumentListener listenerForInputMTxtField) {
 		this.inputMTxtField.getDocument().addDocumentListener(listenerForInputMTxtField);
 	}
@@ -362,5 +310,4 @@ public class SeqMultiplicationGUI extends JFrame {
 	public void listenerForBtnStep(ActionListener listenerForBtnStep) {
 		this.btnStep.addActionListener(listenerForBtnStep);
 	}
-	
 }

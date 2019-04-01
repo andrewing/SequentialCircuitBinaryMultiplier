@@ -13,9 +13,7 @@ import model.*;
 public class MainController {
 	
 	private SeqMultiplicationGUI seqView;
-	private Register reg;
 	private SequentialBinaryMultiplier mul;
-	private int steps;
 	private int ctr;
 	private int ct;
 	
@@ -31,12 +29,11 @@ public class MainController {
 		seqView.listenerForInputQTxtField(docListener);
 	}
 
-	public boolean validInput() {
+	public boolean validBinaryInput() {
 		String input = seqView.getInputM() + seqView.getInputQ();
 		int i = 0;
 		char one = '1';
 		char zero = '0';
-		
 		
 		while(i<input.length()) {
 			if(input.charAt(i) != one && input.charAt(i) != zero) {
@@ -45,31 +42,72 @@ public class MainController {
 				i++;
 			}
 		}
+		return true;
+	}
+	
+	public boolean validDecimalInput() {
+		String input = seqView.getInputM() + seqView.getInputQ();
+		int i = 0;
+		
+		while(i<input.length()) {
+			
+			int val = input.charAt(i);
+			
+			if(val > 57 || val < 43) {
+				return false;
+			}else {
+				i++;
+			}
+		}	
 		
 		return true;
 	}
 	
+	public boolean validHexInput() {
+		
+		String input = seqView.getInputM().toUpperCase() + seqView.getInputQ().toUpperCase();
+		int i = 0;
+		
+		if(input.length() > 8) {
+			return false;
+		}
+		
+		while(i<input.length()) {
+			
+			int val = input.charAt(i);
+			
+			if((val > 57 || val < 48) && (val < 65 || val > 70)) {
+				return false;
+			}else {
+				i++;
+			}
+		}	
+		
+		return true;
+	}
+	
+	
 	DocumentListener docListener = new DocumentListener(){
 		
-		public void nullInput() {
+		public void binaryInput() {
 			if(seqView.getInputM().equalsIgnoreCase("") || seqView.getInputQ().equalsIgnoreCase("")) {
 				seqView.getBtnLoad().setEnabled(false);
-			}else if(!validInput()) {
+			}else if(!validBinaryInput()) {
 				seqView.getBtnLoad().setEnabled(false);
 			}else {
 				seqView.getBtnLoad().setEnabled(true);
 			}
 		}
 		
-		@Override
-		public void insertUpdate(DocumentEvent e) {nullInput();}
-
-		@Override
-		public void removeUpdate(DocumentEvent e) {nullInput();}
-
-		@Override
-		public void changedUpdate(DocumentEvent e) {nullInput();}
 		
+		@Override
+		public void insertUpdate(DocumentEvent e) {binaryInput();}
+
+		@Override
+		public void removeUpdate(DocumentEvent e) {binaryInput();}
+
+		@Override
+		public void changedUpdate(DocumentEvent e) {binaryInput();}
 	};
 	
 	public void setOutputRegisters() {
@@ -104,7 +142,7 @@ public class MainController {
 		seqView.setLblMultiplicand(mult.getRegMValue());
 		seqView.setLblMultiplier(mult.getRegQValue());
 		mult.run();
-		seqView.setProduct(mult.getRegAValue());
+		seqView.setProduct(mult.getRegAValue()+mult.getRegQValue());
 		
 	}
 	
@@ -112,8 +150,10 @@ public class MainController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
 			mul = new SequentialBinaryMultiplier();
 			mul.initRegisters(seqView.getInputM(), seqView.getInputQ());
+			
 			seqView.getTabbedPane().setSelectedIndex(1);
 			setOutputRegisters();
 			setResult();

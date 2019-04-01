@@ -17,6 +17,14 @@ public class Register {
 		this.value = Integer.toBinaryString(value);
 	}
 	
+	public void minimumBits() {
+		
+		while(value.length() != 1 && value.charAt(0) == value.charAt(1)) {
+			value = value.substring(1, value.length());
+		}
+		size = value.length();
+	}
+	
 	public char shiftRight(char insert) {
 		char removed = value.charAt(size-1);
 		value = insert + value;
@@ -54,31 +62,5 @@ public class Register {
 			value = value.substring(value.length() - size);
 		else
 			value = BitUtil.extend(value, size, '0');
-	}
-	
-	
-	public static void main(String[] args) {
-		List<Register> registers = new ArrayList<>();
-		
-		Register m = new Register("1010");
-		Register mneg = new Register(-BitUtil.getStringValue(m.getValue()));
-		mneg.setSize(m.getSize());
-		Register a = new Register("10011");
-		Register q = new Register("01101");
-		Register qneg = new Register("0");
-		registers.add(m);
-		registers.add(mneg);
-		registers.add(a);
-		registers.add(q);
-		registers.add(qneg);
-
-		int index = a.getValue().length() -1;
-		
-		System.out.println(a.getValue());
-		System.out.println(q.getValue());
-		System.out.println(qneg.getValue());
-		System.out.println(a.getValue().charAt(index));
-		System.out.println(a.getValue());
-		System.out.println(q.getValue());
 	}
 }

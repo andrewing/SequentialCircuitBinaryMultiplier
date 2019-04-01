@@ -13,15 +13,24 @@ public class SequentialBinaryMultiplier {
 	}
 	
 	public void initRegisters(String m, String q) {
+		
+		
 		Register regM = new Register(m);
-		Register regMNeg = new Register(-BitUtil.getStringValue(regM.getValue()));
 		Register regQ = new Register(q);
 		Register regQNeg = new Register("0");
 		Register regA = new Register("0");
 		
+		regM.minimumBits();
+		regQ.minimumBits();
+		
+		int negM = -BitUtil.getStringValue(regM.getValue());
+		Register regMNeg = new Register(Integer.toBinaryString(negM));
+	
+		
 		int max = getMaxSize(regM, regQ);
 		stepCtr = 0;
 		this.totalSteps = getMaxSize(regM, regQ) *2;
+		
 		
 		regM.setSize(max);
 		regMNeg.setSize(max);
@@ -147,38 +156,5 @@ public class SequentialBinaryMultiplier {
 				ctr--;
 			}	
 		}
-	}
-	
-	public static void main(String args[]) {
-		String m = "01101";
-		String q = "11010";
-		
-		SequentialBinaryMultiplier mul = new SequentialBinaryMultiplier();
-		
-		mul.initRegisters(m, q);
-		System.out.println("M = " + mul.getRegMValue());
-		System.out.println("A = " + mul.getRegAValue());
-		System.out.println("Q = " + mul.getRegQValue());
-		System.out.println("Qneg = " + mul.getRegQNegValue());
-		System.out.println("==============");
-		mul.cycle();
-		System.out.println("M = " + mul.getRegMValue());
-		System.out.println("A = " + mul.getRegAValue());
-		System.out.println("Q = " + mul.getRegQValue());
-		System.out.println("Qneg = " + mul.getRegQNegValue());
-		System.out.println("==============");
-		mul.step();
-		System.out.println("M = " + mul.getRegMValue());
-		System.out.println("A = " + mul.getRegAValue());
-		System.out.println("Q = " + mul.getRegQValue());
-		System.out.println("Qneg = " + mul.getRegQNegValue());
-		System.out.println("==============");
-		mul.run();
-		System.out.println("M = " + mul.getRegMValue());
-		System.out.println("A = " +mul.getRegAValue());
-		System.out.println("Q = " + mul.getRegQValue());
-		System.out.println("Qneg = " +mul.getRegQNegValue());
-		System.out.println("==============");
-		
 	}
 }
