@@ -45,48 +45,6 @@ public class MainController {
 		return true;
 	}
 	
-	public boolean validDecimalInput() {
-		String input = seqView.getInputM() + seqView.getInputQ();
-		int i = 0;
-		
-		while(i<input.length()) {
-			
-			int val = input.charAt(i);
-			
-			if(val > 57 || val < 43) {
-				return false;
-			}else {
-				i++;
-			}
-		}	
-		
-		return true;
-	}
-	
-	public boolean validHexInput() {
-		
-		String input = seqView.getInputM().toUpperCase() + seqView.getInputQ().toUpperCase();
-		int i = 0;
-		
-		if(input.length() > 8) {
-			return false;
-		}
-		
-		while(i<input.length()) {
-			
-			int val = input.charAt(i);
-			
-			if((val > 57 || val < 48) && (val < 65 || val > 70)) {
-				return false;
-			}else {
-				i++;
-			}
-		}	
-		
-		return true;
-	}
-	
-	
 	DocumentListener docListener = new DocumentListener(){
 		
 		public void binaryInput() {

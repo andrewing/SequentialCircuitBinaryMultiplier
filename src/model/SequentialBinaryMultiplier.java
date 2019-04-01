@@ -16,15 +16,13 @@ public class SequentialBinaryMultiplier {
 		
 		
 		Register regM = new Register(m);
+		Register regMNeg = new Register(-BitUtil.getStringValue(regM.getValue()));
 		Register regQ = new Register(q);
 		Register regQNeg = new Register("0");
 		Register regA = new Register("0");
 		
 		regM.minimumBits();
 		regQ.minimumBits();
-		
-		int negM = -BitUtil.getStringValue(regM.getValue());
-		Register regMNeg = new Register(Integer.toBinaryString(negM));
 	
 		
 		int max = getMaxSize(regM, regQ);
