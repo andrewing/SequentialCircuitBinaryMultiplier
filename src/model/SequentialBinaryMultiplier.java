@@ -13,33 +13,34 @@ public class SequentialBinaryMultiplier {
 	}
 	
 	public void initRegisters(String m, String q) {
-
+		
 		
 		Register regM = new Register(m);
-		
-	//	System.out.println(BitUtil.getStringValue(regM.getValue()));
+		Register regMNeg = new Register(-BitUtil.getStringValue(regM.getValue()));
 		Register regQ = new Register(q);
-	//	System.out.println(BitUtil.getStringValue(regQ.getValue()));
-		int mneg = -BitUtil.getStringValue(regM.getValue());
-		Register regMNeg = new Register(BitUtil.format(mneg));
 		Register regQNeg = new Register("0");
 		Register regA = new Register("0");
-		
-		
-		regM.minimumBits();
 		regQ.minimumBits();
+		regM.minimumBits();
+	
+//		System.out.println(regM.getValue());
+//		System.out.println(regMNeg.getValue());
 		if(regM.getValue().equalsIgnoreCase(regMNeg.getValue())) {
 			regM.setValue("1" + regM.getValue());
-			regMNeg.setValue("0" + regMNeg.getValue());
+			regMNeg.setValue("0"+regMNeg.getValue());
 			regM.setSize(regM.getSize()+1);
 		}
-	
-		System.out.println(regM.getValue());
-		System.out.println(regQ.getValue());
+		if(regM.getValue().charAt(0) == '1') {
+			regMNeg.setValue("0"+regMNeg.getValue());
+		} 
 		
+		
+		
+		int max = getMaxSize(regM, regQ);
 		stepCtr = 0;
 		this.totalSteps = getMaxSize(regM, regQ) *2;
-		int max = getMaxSize(regM, regQ);
+		
+		
 		regM.setSize(max);
 		regMNeg.setSize(max);
 		regQ.setSize(max);
@@ -62,8 +63,6 @@ public class SequentialBinaryMultiplier {
 	}
 	
 	public void add() {
-		String mVal = registers.get(0).getValue();
-		String mneg = registers.get(1).getValue();
 		String q = registers.get(2).getValue();
 		String qNeg = registers.get(3).getValue();
 		short m = BitUtil.getStringValue(registers.get(0).getValue());
@@ -78,13 +77,7 @@ public class SequentialBinaryMultiplier {
 			sum = (short) (a + m);
 			
 		}
-		
-		if(mVal.equalsIgnoreCase(mneg)) {
-			registers.get(4).setValue(Integer.toBinaryString(sum));
-			
-		}else {
-			registers.get(4).setValue(BitUtil.format(sum));
-		}
+		registers.get(4).setValue("0"+Integer.toBinaryString(sum));
 		registers.get(4).fit();
 	}
 	
