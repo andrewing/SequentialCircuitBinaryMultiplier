@@ -13,23 +13,27 @@ public class SequentialBinaryMultiplier {
 	}
 	
 	public void initRegisters(String m, String q) {
-		
+
 		
 		Register regM = new Register(m);
-		Register regMNeg = new Register(-BitUtil.getStringValue(regM.getValue()));
+		
+	//	System.out.println(BitUtil.getStringValue(regM.getValue()));
 		Register regQ = new Register(q);
+	//	System.out.println(BitUtil.getStringValue(regQ.getValue()));
+		int mneg = -BitUtil.getStringValue(regM.getValue());
+		Register regMNeg = new Register(BitUtil.format(mneg));
 		Register regQNeg = new Register("0");
 		Register regA = new Register("0");
 		
 		regM.minimumBits();
 		regQ.minimumBits();
-	
 		
-		int max = getMaxSize(regM, regQ);
+		System.out.println(regM.getValue());
+		System.out.println(regQ.getValue());
+		
 		stepCtr = 0;
 		this.totalSteps = getMaxSize(regM, regQ) *2;
-		
-		
+		int max = getMaxSize(regM, regQ);
 		regM.setSize(max);
 		regMNeg.setSize(max);
 		regQ.setSize(max);
@@ -52,6 +56,8 @@ public class SequentialBinaryMultiplier {
 	}
 	
 	public void add() {
+		String mVal = registers.get(0).getValue();
+		String mneg = registers.get(1).getValue();
 		String q = registers.get(2).getValue();
 		String qNeg = registers.get(3).getValue();
 		short m = BitUtil.getStringValue(registers.get(0).getValue());
@@ -66,7 +72,13 @@ public class SequentialBinaryMultiplier {
 			sum = (short) (a + m);
 			
 		}
-		registers.get(4).setValue(Integer.toBinaryString(sum));
+		
+		if(mVal.equalsIgnoreCase(mneg)) {
+			registers.get(4).setValue(Integer.toBinaryString(sum));
+			
+		}else {
+			registers.get(4).setValue(BitUtil.format(sum));
+		}
 		registers.get(4).fit();
 	}
 	

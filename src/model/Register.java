@@ -58,9 +58,16 @@ public class Register {
 	}
 	
 	public void fit() {
-		if(value.length()>size)
+		if(value.length()>size) {
 			value = value.substring(value.length() - size);
-		else
-			value = BitUtil.extend(value, size, '0');
+		}
+		else {
+			//value = BitUtil.extend(value, size, '0');
+			if(value.charAt(0) == '0') {
+				value = BitUtil.extend(value, size, '0');
+			}else {
+				value = BitUtil.extend(value, size, '1');
+			}
+		}
 	}
 }
