@@ -61,6 +61,6 @@ public class Register {
 		if(value.length()>size)
 			value = value.substring(value.length() - size);
 		else
-			value = BitUtil.extend(value, size, '0');
+			value = BitUtil.signExtend(value, size);
 	}
 }

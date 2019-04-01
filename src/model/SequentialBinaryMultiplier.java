@@ -21,8 +21,14 @@ public class SequentialBinaryMultiplier {
 		Register regQNeg = new Register("0");
 		Register regA = new Register("0");
 		
+		
 		regM.minimumBits();
 		regQ.minimumBits();
+		if(regM.getValue().equalsIgnoreCase(regMNeg.getValue())) {
+			regM.setValue("1" + regM.getValue());
+			regMNeg.setValue("0" + regMNeg.getValue());
+			regM.setSize(regM.getSize()+1);
+		}
 	
 		
 		int max = getMaxSize(regM, regQ);
