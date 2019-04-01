@@ -21,8 +21,18 @@ public class BitUtil {
 		if(value.length() < Short.SIZE)
 			val = signExtend(value, Short.SIZE);
 		return (short) Integer.parseInt(val, 2);
-	} 
+	}
 	
+	public static String format(int val) {
+		String neg;
+		if(val > 0) {
+			neg = String.format(0+Integer.toBinaryString(val));
+		}else {
+			neg = Integer.toBinaryString(val);
+		}
+		
+		return neg;
+	}
 
 	
 }

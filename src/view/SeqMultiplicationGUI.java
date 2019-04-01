@@ -11,6 +11,8 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
+
 import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
@@ -309,5 +311,10 @@ public class SeqMultiplicationGUI extends JFrame {
 	
 	public void listenerForBtnStep(ActionListener listenerForBtnStep) {
 		this.btnStep.addActionListener(listenerForBtnStep);
+	}
+	
+	public void keyListenerForInputField(KeyListener keyListener) {
+		this.inputMTxtField.addKeyListener(keyListener);
+		this.inputQTxtField.addKeyListener(keyListener);
 	}
 }
