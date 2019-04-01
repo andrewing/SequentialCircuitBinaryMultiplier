@@ -1,3 +1,4 @@
+package Driver;
 import controller.MainController;
 import view.SeqMultiplicationGUI;
 

@@ -2,6 +2,9 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -27,6 +30,7 @@ public class MainController {
 		seqView.listenerForBtnStep(new BtnStepActionListener());
 		seqView.listenerForInputMTxtField(docListener);
 		seqView.listenerForInputQTxtField(docListener);
+		seqView.keyListenerForInputField(new InputKeyListener());
 	}
 
 	public boolean validBinaryInput() {
@@ -197,4 +201,21 @@ public class MainController {
 			
 		}
 	}	
+	
+	class InputKeyListener implements KeyListener{
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			if(e.getKeyCode() == KeyEvent.VK_ENTER && seqView.getBtnLoad().isEnabled()) {
+				seqView.getBtnLoad().doClick();
+			}
+		}
+		
+		@Override
+		public void keyTyped(KeyEvent e) {}
+
+		@Override
+		public void keyReleased(KeyEvent e) {}
+		
+	}
 }
