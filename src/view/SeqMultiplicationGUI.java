@@ -1,5 +1,4 @@
 package view;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,10 +19,6 @@ import java.awt.event.KeyListener;
 import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 
 public class SeqMultiplicationGUI extends JFrame {
 
@@ -51,10 +46,7 @@ public class SeqMultiplicationGUI extends JFrame {
 	private JPanel panel;
 	private JPanel panel_1;
 	private JPanel answersAPanel, answersQPanel;
-	private JPanel panel_2;
-	private JPanel panel_3;
 	private JScrollPane scrollPaneQ;
-	private JLabel lblNewLabel;
 	private JLabel lblA_1;
 	private JLabel lblQ_1;
 
