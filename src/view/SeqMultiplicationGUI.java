@@ -1,7 +1,9 @@
 package view;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentListener;
 import javax.swing.JTabbedPane;
@@ -9,6 +11,8 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.WindowConstants;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
@@ -16,9 +20,18 @@ import java.awt.event.KeyListener;
 import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 public class SeqMultiplicationGUI extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
 	private JTabbedPane tabbedPane;
 	private JFormattedTextField inputMTxtField, inputQTxtField;
@@ -32,6 +45,16 @@ public class SeqMultiplicationGUI extends JFrame {
 	private JLabel lblMPrime, lblCycleCount, lblCount;
 	private JPanel result;
 	private JLabel lblX, lblProduct, lblMultiplicand, lblMultiplier;
+	private JScrollPane scrollPaneA;
+	private JPanel panel;
+	private JPanel panel_1;
+	private JPanel answersAPanel, answersQPanel;
+	private JPanel panel_2;
+	private JPanel panel_3;
+	private JScrollPane scrollPaneQ;
+	private JLabel lblNewLabel;
+	private JLabel lblA_1;
+	private JLabel lblQ_1;
 
 	public SeqMultiplicationGUI() {
 		
@@ -41,14 +64,14 @@ public class SeqMultiplicationGUI extends JFrame {
 		catch (Exception e) {}
 		
 		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(100, 100, 747, 231);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
+		tabbedPane = new JTabbedPane(SwingConstants.LEFT);
 		tabbedPane.setBounds(10, 11, 723, 183);
 		contentPane.add(tabbedPane);
 		JPanel input = new JPanel();
@@ -210,6 +233,50 @@ public class SeqMultiplicationGUI extends JFrame {
 		lblX.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblX.setBounds(200, 89, 49, 14);
 		result.add(lblX);
+		
+		JPanel answers = new JPanel();
+		tabbedPane.addTab("Answers", null, answers, null);
+		answers.setLayout(null);
+		
+		panel = new JPanel();
+		panel.setBounds(0, 0, 330, 16);
+		answers.add(panel);
+		panel.setLayout(null);
+		
+		lblA_1 = new JLabel("A");
+		lblA_1.setFont(new Font("Sylfaen", Font.BOLD, 11));
+		lblA_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblA_1.setBounds(148, 0, 20, 19);
+		panel.add(lblA_1);
+		
+		panel_1 = new JPanel();
+		panel_1.setBounds(329, 0, 330, 16);
+		answers.add(panel_1);
+		panel_1.setLayout(null);
+		
+		lblQ_1 = new JLabel("Q");
+		lblQ_1.setBounds(160, 0, 18, 20);
+		lblQ_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblQ_1.setFont(new Font("Sylfaen", Font.BOLD, 11));
+		panel_1.add(lblQ_1);
+		
+		scrollPaneA = new JScrollPane();
+		scrollPaneA.setBounds(0, 18, 330, 160);
+		answers.add(scrollPaneA);
+		
+		answersAPanel = new JPanel();
+		scrollPaneA.setViewportView(answersAPanel);
+		answersAPanel.setLayout(new FlowLayout());
+		answersAPanel.setAlignmentX(CENTER_ALIGNMENT);
+
+		scrollPaneQ = new JScrollPane();
+		scrollPaneQ.setBounds(329, 18, 330, 160);
+		answers.add(scrollPaneQ);
+		
+		answersQPanel = new JPanel();
+		scrollPaneQ.setViewportView(answersQPanel);
+		answersQPanel.setLayout(new FlowLayout());
+		
 		
 	}
 

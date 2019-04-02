@@ -23,8 +23,7 @@ public class SequentialBinaryMultiplier {
 		regQ.minimumBits();
 		regM.minimumBits();
 	
-//		System.out.println(regM.getValue());
-//		System.out.println(regMNeg.getValue());
+
 		if(regM.getValue().equalsIgnoreCase(regMNeg.getValue())) {
 			regM.setValue("1" + regM.getValue());
 			regMNeg.setValue("0"+regMNeg.getValue());
