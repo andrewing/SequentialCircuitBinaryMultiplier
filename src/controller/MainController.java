@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import view.*;
@@ -17,6 +18,7 @@ public class MainController {
 	private SequentialBinaryMultiplier mul;
 	private int ctr;
 	private int ct;
+	private int aSpace = 0, qSpace = 0;
 	
 	public MainController(SeqMultiplicationGUI sv) {
 		this.seqView = sv;
@@ -110,8 +112,17 @@ public class MainController {
 	}
 	
 	public void addAQToList(String a, String q) {
-		seqView.getAnswersAPanel().add(new JLabel(a));
-		seqView.getAnswersQPanel().add(new JLabel(q));
+		JLabel A = new JLabel(a);
+		A.setHorizontalAlignment(SwingConstants.CENTER);
+		A.setBounds(0, aSpace, 328, 14);
+		
+		JLabel Q = new JLabel(q);
+		Q.setHorizontalAlignment(SwingConstants.CENTER);
+		Q.setBounds(0, qSpace, 328, 14);
+		seqView.getAnswersAPanel().add(A);
+		seqView.getAnswersQPanel().add(Q);
+		aSpace += 15;
+		qSpace += 15;
 	}
 	
 	class BtnLoadActionListener implements ActionListener{
@@ -144,6 +155,7 @@ public class MainController {
 			seqView.setLblMultiplicand("");
 			seqView.setLblMultiplier("");
 			seqView.setProduct("");
+			
 			seqView.getAnswersAPanel().removeAll();
 			seqView.getAnswersQPanel().removeAll();
 		}
@@ -189,17 +201,16 @@ public class MainController {
 				seqView.getBtnRun().setEnabled(false);
 			}
 			
+			mul.step();
+			
+			setOutputRegisters();
+			seqView.getBtnStep().setText("Step " + (mul.getStepCtr()%2+1));
 			if(ctr % 2 == 0) {
 				seqView.setLblCount(ct+"");
 				ct++;
+				if(ctr >=2)
 				addAQToList(mul.getAlist().get(mul.getAlist().size()-1), mul.getQlist().get(mul.getQlist().size()-1));
-
 			}
-			
-			mul.step();
-			setOutputRegisters();
-			System.out.println( mul.getStepCtr()%2);
-			seqView.getBtnStep().setText("Step " + (mul.getStepCtr()%2+1));
 		}
 	}
 	
@@ -209,10 +220,12 @@ public class MainController {
 		public void actionPerformed(ActionEvent e) {
 			seqView.getBtnCycle().setEnabled(false);
 			seqView.getBtnStep().setEnabled(false);
+			int i = mul.getStepCtr()/2;
+			System.out.println(i);
 			mul.run();
 			seqView.setLblCount(mul.getTotalCycle()+"");
 			setOutputRegisters();
-			for(int i = mul.getTotalCycle(); i < mul.getAlist().size(); i ++) {
+			for(; i < mul.getAlist().size(); i ++) {
 				addAQToList(mul.getAlist().get(i), mul.getQlist().get(i));
 
 			}

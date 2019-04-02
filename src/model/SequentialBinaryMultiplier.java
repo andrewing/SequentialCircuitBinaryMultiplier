@@ -140,6 +140,9 @@ public class SequentialBinaryMultiplier {
 		}else if(stepCtr % 2 != 0 && stepCtr <= totalSteps) {
 			shiftRegisters();
 			stepCtr++;
+
+			qlist.add(registers.get(2).getValue());
+			alist.add(registers.get(4).getValue());
 		}else if(stepCtr == totalSteps) {
 			System.out.println("sakto");
 		}
