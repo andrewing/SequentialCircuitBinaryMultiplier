@@ -399,4 +399,22 @@ public class SeqMultiplicationGUI extends JFrame {
 	public void setLblStepStatus(JLabel lblStepStatus) {
 		this.lblStepStatus = lblStepStatus;
 	}
+	public JPanel getAnswersAPanel() {
+		return answersAPanel;
+	}
+
+
+	public void setAnswersAPanel(JPanel answersAPanel) {
+		this.answersAPanel = answersAPanel;
+	}
+
+
+	public JPanel getAnswersQPanel() {
+		return answersQPanel;
+	}
+
+
+	public void setAnswersQPanel(JPanel answersQPanel) {
+		this.answersQPanel = answersQPanel;
+	}
 }

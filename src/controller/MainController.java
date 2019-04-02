@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import javax.swing.JLabel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import view.*;
@@ -107,6 +109,11 @@ public class MainController {
 		
 	}
 	
+	public void addAQToList(String a, String q) {
+		seqView.getAnswersAPanel().add(new JLabel(a));
+		seqView.getAnswersQPanel().add(new JLabel(q));
+	}
+	
 	class BtnLoadActionListener implements ActionListener{
 
 		@Override
@@ -115,10 +122,12 @@ public class MainController {
 			mul = new SequentialBinaryMultiplier();
 			mul.initRegisters(seqView.getInputM(), seqView.getInputQ());
 			
+			
+			
 			seqView.getTabbedPane().setSelectedIndex(1);
-			setOutputRegisters();
-			setResult();
 			init();
+			setResult();
+			setOutputRegisters();
 		}
 	}
 	
@@ -135,7 +144,8 @@ public class MainController {
 			seqView.setLblMultiplicand("");
 			seqView.setLblMultiplier("");
 			seqView.setProduct("");
-			
+			seqView.getAnswersAPanel().removeAll();
+			seqView.getAnswersQPanel().removeAll();
 		}
 	}
 	
@@ -162,8 +172,7 @@ public class MainController {
 			
 			mul.cycle();
 			setOutputRegisters();
-			System.out.println(mul.getAlist().get(mul.getAlist().size()-1));
-			System.out.println(mul.getQlist().get(mul.getQlist().size()-1));
+			addAQToList(mul.getAlist().get(mul.getAlist().size()-1), mul.getQlist().get(mul.getQlist().size()-1));
 			
 		}
 	}
@@ -183,6 +192,8 @@ public class MainController {
 			if(ctr % 2 == 0) {
 				seqView.setLblCount(ct+"");
 				ct++;
+				addAQToList(mul.getAlist().get(mul.getAlist().size()-1), mul.getQlist().get(mul.getQlist().size()-1));
+
 			}
 			
 			mul.step();
@@ -201,6 +212,10 @@ public class MainController {
 			mul.run();
 			seqView.setLblCount(mul.getTotalCycle()+"");
 			setOutputRegisters();
+			for(int i = mul.getTotalCycle(); i < mul.getAlist().size(); i ++) {
+				addAQToList(mul.getAlist().get(i), mul.getQlist().get(i));
+
+			}
 			
 		}
 	}	
