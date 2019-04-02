@@ -159,6 +159,8 @@ public class MainController {
 			
 			mul.cycle();
 			setOutputRegisters();
+			System.out.println(mul.getAlist().get(mul.getAlist().size()-1));
+			System.out.println(mul.getQlist().get(mul.getQlist().size()-1));
 			
 		}
 	}
@@ -179,9 +181,10 @@ public class MainController {
 				seqView.setLblCount(ct+"");
 				ct++;
 			}
-			
 			mul.step();
 			setOutputRegisters();
+			System.out.println( mul.getStepCtr()%2);
+			seqView.getBtnStep().setText("Step " + (mul.getStepCtr()%2+1));
 		}
 	}
 	

@@ -42,7 +42,9 @@ public class SeqMultiplicationGUI extends JFrame {
 
 	private JButton btnCycle, btnRun, btnStep;
 	private JTextField outputMPrime;
-	private JLabel lblMPrime, lblCycleCount, lblCount;
+	private JLabel lblMPrime, lblCycleCount, lblCount, lblStepStatus;
+	
+
 	private JPanel result;
 	private JLabel lblX, lblProduct, lblMultiplicand, lblMultiplier;
 	private JScrollPane scrollPaneA;
@@ -197,10 +199,14 @@ public class SeqMultiplicationGUI extends JFrame {
 		btnRun.setBounds(388, 135, 94, 27);
 		solution.add(btnRun);
 		
-		btnStep = new JButton("Step");
+		btnStep = new JButton("Step 1");
 		btnStep.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnStep.setBounds(91, 135, 94, 27);
 		solution.add(btnStep);
+		
+		lblStepStatus = new JLabel("");
+		lblStepStatus.setBounds(20, 142, 48, 14);
+		solution.add(lblStepStatus);
 
 		result = new JPanel();
 		tabbedPane.addTab("Result", null, result, null);
@@ -223,9 +229,9 @@ public class SeqMultiplicationGUI extends JFrame {
 		result.add(separator);
 		
 		lblProduct = new JLabel();
-		lblProduct.setHorizontalAlignment(SwingConstants.CENTER);
+		lblProduct.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblProduct.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblProduct.setBounds(240, 115, 170, 30);
+		lblProduct.setBounds(10, 115, 400, 30);
 		result.add(lblProduct);
 		
 		lblX = new JLabel("X");
@@ -383,5 +389,14 @@ public class SeqMultiplicationGUI extends JFrame {
 	public void keyListenerForInputField(KeyListener keyListener) {
 		this.inputMTxtField.addKeyListener(keyListener);
 		this.inputQTxtField.addKeyListener(keyListener);
+	}
+	
+	public JLabel getLblStepStatus() {
+		return lblStepStatus;
+	}
+
+
+	public void setLblStepStatus(JLabel lblStepStatus) {
+		this.lblStepStatus = lblStepStatus;
 	}
 }

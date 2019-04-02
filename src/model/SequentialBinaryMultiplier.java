@@ -4,12 +4,16 @@ import java.util.*;
 import controller.BitUtil;
 public class SequentialBinaryMultiplier {
 	private ArrayList<Register> registers;
+	private ArrayList<String> alist;
+	private ArrayList<String> qlist;
 	int totalSteps;
 	int stepCtr;
-	
+	int stepNumber;
 	
 	public SequentialBinaryMultiplier(){
 		this.registers = new ArrayList<Register>();
+		this.qlist = new ArrayList<>();
+		this.alist = new ArrayList<>();
 	}
 	
 	public void initRegisters(String m, String q) {
@@ -24,7 +28,15 @@ public class SequentialBinaryMultiplier {
 		regM.minimumBits();
 	
 
+
 		if(regM.getValue().equalsIgnoreCase(regMNeg.getValue())) {
+
+//		System.out.println(regM.getValue());
+//		System.out.println(regMNeg.getValue());
+		if(regM.getValue().equalsIgnoreCase(regMNeg.getValue()) && regM.getValue().equalsIgnoreCase("0")) {
+			
+		}else if(regM.getValue().equalsIgnoreCase(regMNeg.getValue())) {
+
 			regM.setValue("1" + regM.getValue());
 			regMNeg.setValue("0"+regMNeg.getValue());
 			regM.setSize(regM.getSize()+1);
@@ -37,6 +49,7 @@ public class SequentialBinaryMultiplier {
 		
 		int max = getMaxSize(regM, regQ);
 		stepCtr = 0;
+		stepNumber = 1;
 		this.totalSteps = getMaxSize(regM, regQ) *2;
 		
 		
@@ -50,6 +63,7 @@ public class SequentialBinaryMultiplier {
 		registers.add(regQ);
 		registers.add(regQNeg);
 		registers.add(regA);
+		}
 	}
 	
 	public int getMaxSize(Register m, Register q) {
@@ -74,7 +88,6 @@ public class SequentialBinaryMultiplier {
 		
 		}else if(q.charAt(q.length()-1) == '0' && qNeg.equalsIgnoreCase("1")) {
 			sum = (short) (a + m);
-			
 		}
 		registers.get(4).setValue("0"+Integer.toBinaryString(sum));
 		registers.get(4).fit();
@@ -126,7 +139,6 @@ public class SequentialBinaryMultiplier {
 		if(stepCtr % 2 == 0 && stepCtr <= totalSteps) {
 			add();
 			stepCtr++;
-			
 		}else if(stepCtr % 2 != 0 && stepCtr <= totalSteps) {
 			shiftRegisters();
 			stepCtr++;
@@ -146,8 +158,13 @@ public class SequentialBinaryMultiplier {
 			shiftRegisters();
 			stepCtr++;
 		}
+		
+		qlist.add(registers.get(2).getValue());
+		alist.add(registers.get(4).getValue());
 	}
 	
+	
+
 	public void run() {
 		
 		if(stepCtr % 2 == 0) {
@@ -164,5 +181,30 @@ public class SequentialBinaryMultiplier {
 				ctr--;
 			}	
 		}
+	}
+	
+	public ArrayList<String> getAlist() {
+		return alist;
+	}
+
+	public void setAlist(ArrayList<String> alist) {
+		this.alist = alist;
+	}
+
+	public ArrayList<String> getQlist() {
+		return qlist;
+	}
+
+	public void setQlist(ArrayList<String> qlist) {
+		this.qlist = qlist;
+	}
+	
+	
+	public int getStepNumber() {
+		return stepNumber;
+	}
+
+	public void setStepNumber(int stepNumber) {
+		this.stepNumber = stepNumber;
 	}
 }
