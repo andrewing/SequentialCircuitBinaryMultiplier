@@ -16,11 +16,11 @@ public class BitUtil {
 		return extend(value, size, value.charAt(0));
 	}
 	
-	public static short getStringValue(String value) {
+	public static int getStringValue(String value) {
 		String val = value;
-		if(value.length() < Short.SIZE)
-			val = signExtend(value, Short.SIZE);
-		return (short) Integer.parseInt(val, 2);
+//		if(value.length() < Integer.SIZE)
+//			val = signExtend(value, Integer.SIZE);
+		return /*(short)*/ Integer.parseInt(val, 2);
 	} 
 	
 

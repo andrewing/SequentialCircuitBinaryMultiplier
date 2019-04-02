@@ -45,6 +45,9 @@ public class MainController {
 			}else {
 				i++;
 			}
+			if(seqView.getInputM().length() > 16 || seqView.getInputQ().length() > 16) {
+				return false;
+			}
 		}
 		return true;
 	}
@@ -185,6 +188,7 @@ public class MainController {
 				seqView.setLblCount(ct+"");
 				ct++;
 			}
+			
 			mul.step();
 			setOutputRegisters();
 			System.out.println( mul.getStepCtr()%2);

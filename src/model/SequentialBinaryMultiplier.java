@@ -72,16 +72,16 @@ public class SequentialBinaryMultiplier {
 	public void add() {
 		String q = registers.get(2).getValue();
 		String qNeg = registers.get(3).getValue();
-		short m = BitUtil.getStringValue(registers.get(0).getValue());
-		short mNeg = BitUtil.getStringValue(registers.get(1).getValue()); 
-		short a = BitUtil.getStringValue(registers.get(4).getValue());
-		short sum = a;
+		int m = BitUtil.getStringValue(registers.get(0).getValue());
+		int mNeg = BitUtil.getStringValue(registers.get(1).getValue()); 
+		int a = BitUtil.getStringValue(registers.get(4).getValue());
+		int sum = a;
 		
 		if(q.charAt(q.length()-1) == '1' && qNeg.equalsIgnoreCase("0")) {
-			sum = (short) (a + mNeg);
+			sum = /*(short)*/ (a + mNeg);
 		
 		}else if(q.charAt(q.length()-1) == '0' && qNeg.equalsIgnoreCase("1")) {
-			sum = (short) (a + m);
+			sum = /*(short)*/ (a + m);
 		}
 		registers.get(4).setValue("0"+Integer.toBinaryString(sum));
 		registers.get(4).fit();
