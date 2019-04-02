@@ -27,11 +27,16 @@ public class SequentialBinaryMultiplier {
 		regQ.minimumBits();
 		regM.minimumBits();
 	
+
+
+		if(regM.getValue().equalsIgnoreCase(regMNeg.getValue())) {
+
 //		System.out.println(regM.getValue());
 //		System.out.println(regMNeg.getValue());
 		if(regM.getValue().equalsIgnoreCase(regMNeg.getValue()) && regM.getValue().equalsIgnoreCase("0")) {
 			
 		}else if(regM.getValue().equalsIgnoreCase(regMNeg.getValue())) {
+
 			regM.setValue("1" + regM.getValue());
 			regMNeg.setValue("0"+regMNeg.getValue());
 			regM.setSize(regM.getSize()+1);
@@ -58,6 +63,7 @@ public class SequentialBinaryMultiplier {
 		registers.add(regQ);
 		registers.add(regQNeg);
 		registers.add(regA);
+		}
 	}
 	
 	public int getMaxSize(Register m, Register q) {
