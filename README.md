@@ -1,2 +1,2 @@
 # SequentialCircuitBinaryMultiplier
-sequential circuit binary multiplier
+A Java application that simulates the steps of a sequential circuit binary multiplier
